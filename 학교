@@ -1,0 +1,17 @@
+print("안녕하세요! 무엇을 도와드릴까요?")
+user_input = input()
+
+if "날씨" in user_input:
+    print("오늘은 맑고 기온이 32도입니다.")
+if "이름" in user_input:
+    print("저는 미니챗봇 입니다..")
+if "기분" in user_input:
+    print("저의 기분은 항상 기쁨입니다.")
+if "미세먼지" in user_input:
+    print("오늘의 미세먼지는 20매으로 매우나쁨 입니다.")
+if "창원고등학교" in user_input:
+    print("창원고등학교는 창원 도계동에 있는 사람 명문 남자고등학교 입니다.")
+if "만든사람" in user_input:
+    print("저를 만든 사람은 박희묵과 이재준 이에요.")                
+else:
+    print("죄송합니다, 이해할수 없는 글 입니다.")
