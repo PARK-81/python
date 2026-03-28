@@ -1,0 +1,129 @@
+# F1 피트인 추천 프로그램
+# 목적: 현재 경기 상황을 바탕으로 피트인 여부를 간단히 추천하기
+
+def recommend_pit_stop(current_lap, total_laps, tire_type, tire_age,
+                       gap_ahead, gap_behind, safety_car):
+    score = 0
+    reasons = []
+
+    # 1. 타이어 마모도 반영
+    if tire_type == "soft":
+        if tire_age >= 15:
+            score += 4
+            reasons.append("소프트 타이어 마모가 커서 피트인 필요성이 높음")
+        elif tire_age >= 10:
+            score += 2
+            reasons.append("소프트 타이어 성능 저하가 시작됨")
+
+    elif tire_type == "medium":
+        if tire_age >= 25:
+            score += 4
+            reasons.append("미디엄 타이어 마모가 커서 피트인 필요성이 높음")
+        elif tire_age >= 18:
+            score += 2
+            reasons.append("미디엄 타이어 성능 저하가 시작됨")
+
+    elif tire_type == "hard":
+        if tire_age >= 35:
+            score += 4
+            reasons.append("하드 타이어도 마모가 누적되어 피트인 필요성이 높음")
+        elif tire_age >= 28:
+            score += 2
+            reasons.append("하드 타이어 성능 저하가 시작됨")
+
+    # 2. Safety Car 여부 반영
+    if safety_car:
+        score += 4
+        reasons.append("Safety Car 상황이라 피트 손해가 줄어듦")
+
+    # 3. 앞차와의 간격 반영
+    if gap_ahead > 3:
+        score += 2
+        reasons.append("앞차와 간격이 있어 피트인 후 순위 손실 위험이 비교적 적음")
+    elif gap_ahead < 1:
+        score -= 1
+        reasons.append("앞차와 간격이 매우 좁아 추월 기회를 더 볼 필요가 있음")
+
+    # 4. 뒤차와의 간격 반영
+    if gap_behind > 3:
+        score += 2
+        reasons.append("뒤차와 간격이 있어 피트인 후 방어가 비교적 쉬움")
+    elif gap_behind < 1.5:
+        score -= 2
+        reasons.append("뒤차와 간격이 좁아 피트인 시 순위 하락 위험이 큼")
+
+    # 5. 경기 후반 여부 반영
+    laps_left = total_laps - current_lap
+    if laps_left < 8:
+        score -= 2
+        reasons.append("경기 후반이라 피트인 후 회복할 시간이 부족할 수 있음")
+
+    # 최종 판단
+    if score >= 6:
+        recommendation = "피트인 추천"
+    elif score >= 3:
+        recommendation = "상황을 보며 피트인 고려"
+    else:
+        recommendation = "트랙 유지 추천"
+
+    return score, recommendation, reasons
+
+
+# -----------------------------
+# 실행 예시 1
+score, recommendation, reasons = recommend_pit_stop(
+    current_lap=32,
+    total_laps=58,
+    tire_type="soft",
+    tire_age=16,
+    gap_ahead=4.2,
+    gap_behind=3.5,
+    safety_car=False
+)
+
+print("[예시 1 결과]")
+print("전략 점수:", score)
+print("추천 결과:", recommendation)
+print("판단 이유:")
+for r in reasons:
+    print("-", r)
+
+print()
+
+# 실행 예시 2
+score, recommendation, reasons = recommend_pit_stop(
+    current_lap=20,
+    total_laps=58,
+    tire_type="medium",
+    tire_age=12,
+    gap_ahead=0.8,
+    gap_behind=0.9,
+    safety_car=False
+)
+
+print("[예시 2 결과]")
+print("전략 점수:", score)
+print("추천 결과:", recommendation)
+print("판단 이유:")
+for r in reasons:
+    print("-", r)
+
+print()
+
+# 실행 예시 3
+score, recommendation, reasons = recommend_pit_stop(
+    current_lap=41,
+    total_laps=58,
+    tire_type="hard",
+    tire_age=30,
+    gap_ahead=2.0,
+    gap_behind=4.5,
+    safety_car=True
+)
+
+print("[예시 3 결과]")
+print("전략 점수:", score)
+print("추천 결과:", recommendation)
+print("판단 이유:")
+for r in reasons:
+    print("-", r)
