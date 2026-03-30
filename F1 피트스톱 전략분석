@@ -90,6 +90,14 @@ for r in reasons:
 
 print()
 
+[예시 1 결과]
+전략 점수: 8
+추천 결과: 피트인 추천
+판단 이유:
+- 소프트 타이어 마모가 커서 피트인 필요성이 높음
+- 앞차와 간격이 있어 피트인 후 순위 손실 위험이 비교적 적음
+- 뒤차와 간격이 있어 피트인 후 방어가 비교적 쉬움
+
 # 실행 예시 2
 score, recommendation, reasons = recommend_pit_stop(
     current_lap=20,
@@ -110,6 +118,13 @@ for r in reasons:
 
 print()
 
+# [예시 2 결과]
+# 전략 점수: -3
+# 추천 결과: 트랙 유지 추천
+# 판단 이유:
+# - 앞차와 간격이 매우 좁아 추월 기회를 더 볼 필요가 있음
+# - 뒤차와 간격이 좁아 피트인 시 순위 하락 위험이 큼
+
 # 실행 예시 3
 score, recommendation, reasons = recommend_pit_stop(
     current_lap=41,
@@ -127,3 +142,11 @@ print("추천 결과:", recommendation)
 print("판단 이유:")
 for r in reasons:
     print("-", r)
+
+# [예시 3 결과]
+# 전략 점수: 8
+# 추천 결과: 피트인 추천
+# 판단 이유:
+# - 하드 타이어 성능 저하가 시작됨
+# - Safety Car 상황이라 피트 손해가 줄어듦
+# - 뒤차와 간격이 있어 피트인 후 방어가 비교적 쉬움
