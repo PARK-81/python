@@ -75,10 +75,10 @@ score, recommendation, reasons = recommend_pit_stop(
     current_lap=32,
     total_laps=58,
     tire_type="soft",
-    tire_age=16,
-    gap_ahead=4.2,
-    gap_behind=3.5,
-    safety_car=False
+    tire_age=16, +4
+    gap_ahead=4.2, +2
+    gap_behind=3.5, +2
+    safety_car=False +0
 )
 
 print("[예시 1 결과]")
@@ -103,10 +103,10 @@ score, recommendation, reasons = recommend_pit_stop(
     current_lap=20,
     total_laps=58,
     tire_type="medium",
-    tire_age=12,
-    gap_ahead=0.8,
-    gap_behind=0.9,
-    safety_car=False
+    tire_age=12, +0
+    gap_ahead=0.8, -1
+    gap_behind=0.9, -2
+    safety_car=False +0
 )
 
 print("[예시 2 결과]")
@@ -130,10 +130,10 @@ score, recommendation, reasons = recommend_pit_stop(
     current_lap=41,
     total_laps=58,
     tire_type="hard",
-    tire_age=30,
-    gap_ahead=2.0,
-    gap_behind=4.5,
-    safety_car=True
+    tire_age=30, +2
+    gap_ahead=2.0, +0
+    gap_behind=4.5, +2
+    safety_car=True +4
 )
 
 print("[예시 3 결과]")
